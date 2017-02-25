@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_search" android:title="Find space" app:showAsAction="always"></item>
+    <item android:id="@+id/menu_profile" android:title="Profile"></item>
+    <item android:id="@+id/menu_upcoming_reserved" android:title="Upcoming reserves"></item>
+    <item android:id="@+id/menu_reserve_history" android:title="History"></item>
+    <item android:id="@+id/menu_have_space" android:title="Have parking space"></item>
+    <item android:id="@+id/menu_settings" android:title="Settings"></item>
+</menu>
