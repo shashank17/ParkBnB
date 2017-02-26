@@ -16,14 +16,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-
-
+import com.google.gson.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class ParkingMapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -81,13 +80,23 @@ public class ParkingMapActivity extends AppCompatActivity implements OnMapReadyC
         mMap = googleMap;
 //        if(ContextCompat.checkSelfPermission(this,Manifest.permission.))
 //        mMap.setMyLocationEnabled(true);
-        if(response != null){
-
+        SearchResponse searchResponse=new SearchResponse();
+        ArrayList<ParkingLocation> spots = new ArrayList<>();
+        if(response != null && response != ""){
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Gson gson = gsonBuilder.create();
+            searchResponse = gson.fromJson(response,SearchResponse.class);
+            for(ParkingSpot spot : searchResponse.parking_listings){
+                spots.add(new ParkingLocation(spot.lat,spot.lng));
+                mMap.addMarker(new MarkerOptions().position(new LatLng(spot.lat,spot.lng)).title(spot.location_name));
+            }
         }
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        LatLng sydney = new LatLng(0, 0);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        if(response!=null && response != "")
+            Log.i(ParkingMapActivity.class.getSimpleName(), searchResponse.parkwhiz_url);
+        else{
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            mMap.setMyLocationEnabled(true);
+        }
     }
 
     private class ParkwhizAsyncTask extends AsyncTask<Void,Void,String> {

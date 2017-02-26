@@ -10,8 +10,8 @@ public class ParkingSpot {
     public String location_name;
     public int location_id;
     public int listing_id;
-    public Date start;
-    public Date end;
+    public long start;
+    public long end;
     public String parkwhiz_url;
     public String api_url;
     public String address;
@@ -22,7 +22,7 @@ public class ParkingSpot {
     public double lng;
     public double distance;
     public double  recommendations;
-    public boolean reservation;
+    public int reservation;
     public int eticket;
     public int valet;
     public int indoor;

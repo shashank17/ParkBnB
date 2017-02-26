@@ -5,7 +5,7 @@ package com.shashankavusali.parkbnb;
  */
 
 public class Amenities {
-    public boolean shuttle;
+    public int shuttle;
     public int eticket;
     public int perk;
     public int valet;
